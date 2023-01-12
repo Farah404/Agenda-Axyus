@@ -1,0 +1,5 @@
+com\axyus\tpagenda\bll\FichierConfigurationIntrouvableException.class
+com\axyus\tpagenda\bo\Customers.class
+com\axyus\tpagenda\bo\Address.class
+com\axyus\tpagenda\utils\Utils.class
+com\axyus\tpagenda\TpAgenda.class

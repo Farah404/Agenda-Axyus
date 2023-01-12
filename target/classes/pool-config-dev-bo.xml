@@ -1,0 +1,11 @@
+<poolManager default="craPortailDB" xmlns="http://axyus.com/pool-config">
+      <dbcp defaultAutoCommit="false"
+          driverClassName="org.postgresql.Driver"
+          maxActive="20"
+          maxWait="5000"
+          name="craPortailDB"
+          password="NA_DEMAQT_PORTAIL_BO_DEV"
+          url="jdbc:postgresql://jaccard:5432/NA_DEMAQT_PORTAIL_BO_DEV"
+          username="NA_DEMAQT_PORTAIL_BO_DEV"
+          validationQuery="SELECT 1"/>
+</poolManager>
