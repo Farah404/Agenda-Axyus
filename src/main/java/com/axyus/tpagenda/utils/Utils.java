@@ -1,7 +1,7 @@
 package com.axyus.tpagenda.utils;
 
 import com.axyus.jdbc.pool.PoolManager;
-import com.axyus.tpagenda.bll.FichierConfigurationIntrouvableException;
+import com.axyus.tpagenda.exceptions.FichierConfigurationIntrouvableException;
 import java.io.File;
 import java.io.IOException;
 import java.rmi.UnexpectedException;

@@ -1,6 +1,6 @@
 package com.axyus.tpagenda.bo;
 
-public class Customers {
+public class Customer {
     
     private int customerId;
     private String lastName;
@@ -8,10 +8,10 @@ public class Customers {
     private String username;
     private String email;
 
-    public Customers() {
+    public Customer() {
     }
 
-    public Customers(int customerId, String lastName, String firstName, String username, String email) {
+    public Customer(int customerId, String lastName, String firstName, String username, String email) {
         this.customerId = customerId;
         this.lastName = lastName;
         this.firstName = firstName;

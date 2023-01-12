@@ -1,5 +1,5 @@
 
-package com.axyus.tpagenda.bll;
+package com.axyus.tpagenda.exceptions;
 
 public class FichierConfigurationIntrouvableException extends Exception{
     
