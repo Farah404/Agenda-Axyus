@@ -1,8 +1,8 @@
 package com.axyus.tpagenda.utils;
 
 import com.axyus.jdbc.pool.PoolManager;
-import com.axyus.tpagenda.exceptions.FichierConfigurationIntrouvableException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.UnexpectedException;
 import org.slf4j.Logger;
@@ -47,11 +47,11 @@ public class Utils {
     }
 
 //initialisation du pool a partir du fichier de conf 
-    public void initialize() throws IOException, FichierConfigurationIntrouvableException {
+    public void initialize() throws IOException, FileNotFoundException  {
        // File poolConfigFile = getConfFile("pool.conf.file", getClass().getClassLoader().getResource("pool-config.xml").toString());
         File poolConfigFile = getConfFile("pool.conf.file", "C:\\devel\\NetBeansProjects\\tpAgenda\\src\\main\\resources\\pool-config.xml");
         if (poolConfigFile == null) {
-            throw new FichierConfigurationIntrouvableException("Fichier de configuration d'accès à la base de données introuvable");
+            throw new FileNotFoundException ("Fichier de configuration d'accès à la base de données introuvable");
         }
         if (PoolManager.getInstance().isInitialized()) {
             getLogger().warn("Le PoolManager a déjà été initialisé.");

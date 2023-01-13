@@ -1,9 +1,5 @@
 C:\devel\NetBeansProjects\tpAgenda\src\main\java\com\axyus\tpagenda\TpAgenda.java
 C:\devel\NetBeansProjects\tpAgenda\src\main\java\com\axyus\tpagenda\bo\Address.java
-C:\devel\NetBeansProjects\tpAgenda\src\main\java\com\axyus\tpagenda\exceptions\FichierConfigurationIntrouvableException.java
 C:\devel\NetBeansProjects\tpAgenda\src\main\java\com\axyus\tpagenda\utils\Utils.java
 C:\devel\NetBeansProjects\tpAgenda\src\main\java\com\axyus\tpagenda\bll\AgendaManager.java
-C:\devel\NetBeansProjects\tpAgenda\src\main\java\com\axyus\tpagenda\dao\AddressDao.java
-C:\devel\NetBeansProjects\tpAgenda\src\main\java\com\axyus\tpagenda\bll\AgendaManagerImpl.java
-C:\devel\NetBeansProjects\tpAgenda\src\main\java\com\axyus\tpagenda\dao\CustomerDao.java
 C:\devel\NetBeansProjects\tpAgenda\src\main\java\com\axyus\tpagenda\bo\Customer.java
