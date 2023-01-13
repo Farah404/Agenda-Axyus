@@ -2,8 +2,8 @@ package com.axyus.tpagenda.bll;
 
 import com.axyus.tpagenda.bo.Address;
 import com.axyus.tpagenda.bo.Customer;
-import com.axyus.tpagenda.dao.AddressDao;
-import com.axyus.tpagenda.dao.CustomerDao;
+import com.axyus.tpagenda.dal.AddressDao;
+import com.axyus.tpagenda.dal.CustomerDao;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,7 +24,6 @@ public class AgendaManagerImpl implements AgendaManager {
     public void createAddress(Address address) {
         addressDao.save(address);
     }
-
 
     @Override
     public List<Customer> getAllCustomers() {
@@ -56,5 +55,4 @@ public class AgendaManagerImpl implements AgendaManager {
         customerDao.deleteAll();
     }
 
-    
 }

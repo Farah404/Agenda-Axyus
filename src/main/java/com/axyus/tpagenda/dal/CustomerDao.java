@@ -1,4 +1,4 @@
-package com.axyus.tpagenda.dao;
+package com.axyus.tpagenda.dal;
 
 import com.axyus.tpagenda.bo.Address;
 import com.axyus.tpagenda.bo.Customer;
