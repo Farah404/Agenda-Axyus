@@ -12,6 +12,7 @@ public class Utils {
 
     private Logger logger;
 
+    //Ecrire en console ou dans un fichier texte les erreurs, indique a quelle endroit le message va etre afficher
     protected Logger getLogger() throws UnexpectedException {
         if (logger == null) {
             throw new UnexpectedException("Logger is not yet initialized");

@@ -36,10 +36,10 @@ public class TpAgenda {
             System.out.println(ex.getMessage());
         }
     }
-    
-    public void getAddresses(){
+
+    public void getAddresses() {
         String SQL = "SELECT * FROM addresses";
-         try (Connection conn = connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(SQL)) {
+        try (Connection conn = connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(SQL)) {
             // display address information
             displayAddresses(rs);
         } catch (SQLException ex) {
@@ -58,6 +58,18 @@ public class TpAgenda {
             System.out.println(ex.getMessage());
         }
     }
+    
+        public void findAddressByID(int addressId) {
+        String SQL = " SELECT * FROM addresses WHERE address_id = ?";
+        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+
+            pstmt.setInt(1, addressId);
+            ResultSet rs = pstmt.executeQuery();
+            displayAddresses(rs);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
     private void displayCustomer(ResultSet rs) throws SQLException {
         while (rs.next()) {
@@ -71,8 +83,8 @@ public class TpAgenda {
 
         }
     }
-    
-    private void displayAddresses (ResultSet rs) throws SQLException {
+
+    private void displayAddresses(ResultSet rs) throws SQLException {
         while (rs.next()) {
             System.out.println(rs.getString("address_id") + "\t"
                     + rs.getString("street_number") + "\t"
@@ -90,7 +102,8 @@ public class TpAgenda {
 //      tpAgenda.connect();
         tpAgenda.getCustomers();
         tpAgenda.getAddresses();
-//        tpAgenda.findCustomerByID(2);
+//      tpAgenda.findCustomerByID(2);
+tpAgenda.findAddressByID(2);
 
     }
 }

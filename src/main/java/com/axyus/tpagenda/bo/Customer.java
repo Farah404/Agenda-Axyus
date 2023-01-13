@@ -1,12 +1,13 @@
 package com.axyus.tpagenda.bo;
 
 public class Customer {
-    
+
     private int customerId;
     private String lastName;
     private String firstName;
     private String username;
     private String email;
+    private Address address;
 
     public Customer() {
     }
@@ -17,6 +18,15 @@ public class Customer {
         this.firstName = firstName;
         this.username = username;
         this.email = email;
+    }
+
+    public Customer(int customerId, String lastName, String firstName, String username, String email, Address address) {
+        this.customerId = customerId;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.username = username;
+        this.email = email;
+        this.address = address;
     }
 
     public int getCustomerId() {
@@ -58,9 +68,13 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
-    
-    
-    
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
 }
