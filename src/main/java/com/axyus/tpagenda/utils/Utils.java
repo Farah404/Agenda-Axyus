@@ -47,8 +47,9 @@ public class Utils {
     }
 
 //initialisation du pool a partir du fichier de conf 
-    protected void initialize() throws IOException, FichierConfigurationIntrouvableException {
-        File poolConfigFile = getConfFile("pool.conf.file", getClass().getClassLoader().getResource("pool-config.xml").toString());
+    public void initialize() throws IOException, FichierConfigurationIntrouvableException {
+       // File poolConfigFile = getConfFile("pool.conf.file", getClass().getClassLoader().getResource("pool-config.xml").toString());
+        File poolConfigFile = getConfFile("pool.conf.file", "C:\\devel\\NetBeansProjects\\tpAgenda\\src\\main\\resources\\pool-config.xml");
         if (poolConfigFile == null) {
             throw new FichierConfigurationIntrouvableException("Fichier de configuration d'accès à la base de données introuvable");
         }
@@ -59,8 +60,4 @@ public class Utils {
         }
     }
 
-// obtenir connexion et faire des operation sur la base
-//try (Connection connection = PoolManager.getInstance().getConnection()) {
-//…
-//}
 }

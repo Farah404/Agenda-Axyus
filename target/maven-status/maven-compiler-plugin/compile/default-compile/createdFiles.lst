@@ -1,7 +1,9 @@
 com\axyus\tpagenda\bo\Customer.class
+com\axyus\tpagenda\dao\AddressDao.class
 com\axyus\tpagenda\exceptions\FichierConfigurationIntrouvableException.class
 com\axyus\tpagenda\TpAgenda.class
-com\axyus\tpagenda\bll\CustomerManager.class
+com\axyus\tpagenda\bll\AgendaManager.class
 com\axyus\tpagenda\bo\Address.class
-com\axyus\tpagenda\dao\CustomerRepository.class
+com\axyus\tpagenda\dao\CustomerDao.class
 com\axyus\tpagenda\utils\Utils.class
+com\axyus\tpagenda\bll\AgendaManagerImpl.class
