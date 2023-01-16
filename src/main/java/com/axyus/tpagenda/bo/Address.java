@@ -1,6 +1,7 @@
 package com.axyus.tpagenda.bo;
 
 public class Address {
+
     private int addressId;
     private int streetNumber;
     private String streetName;
@@ -8,11 +9,16 @@ public class Address {
     private String postalCode;
     private String country;
 
-    public Address() {
-    }
-
     public Address(int addressId, int streetNumber, String streetName, String city, String postalCode, String country) {
         this.addressId = addressId;
+        this.streetNumber = streetNumber;
+        this.streetName = streetName;
+        this.city = city;
+        this.postalCode = postalCode;
+        this.country = country;
+    }
+
+    public Address(int streetNumber, String streetName, String city, String postalCode, String country) {
         this.streetNumber = streetNumber;
         this.streetName = streetName;
         this.city = city;
@@ -72,7 +78,5 @@ public class Address {
     public String toString() {
         return "Address{" + "addressId=" + addressId + ", streetNumber=" + streetNumber + ", streetName=" + streetName + ", city=" + city + ", postalCode=" + postalCode + ", country=" + country + '}';
     }
-    
-    
-    
+
 }
