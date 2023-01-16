@@ -35,9 +35,13 @@ public class TpAgenda {
             agendaManager.deleteAddress(idAddress1);
             agendaManager.deleteCustomer(idCustomer1);
             
+            //update
+            agendaManager.updateUsername(1, "farahaha");
+            
         } catch (IOException ex) {
             Logger.getLogger(TpAgenda.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
+    
 }

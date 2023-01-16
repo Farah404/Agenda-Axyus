@@ -194,4 +194,20 @@ public class AgendaManager {
 
     }
 
+    //Update username
+    public int updateUsername(int id, String username) throws SQLException {
+        String SQL = "UPDATE customers " + "SET username= ? " + "WHERE customer_id=?";
+        int affectedrows = 0;
+        try (Connection connection = PoolManager.getInstance().getConnection()) {
+            PreparedStatement pstmt = connection.prepareStatement(SQL);
+            pstmt.setString(1, username);
+            pstmt.setInt(2, id);
+            affectedrows = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return affectedrows;
+
+    }
+
 }
