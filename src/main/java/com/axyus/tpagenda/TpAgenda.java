@@ -31,6 +31,10 @@ public class TpAgenda {
             Customer customer = new Customer("Reynolds", "Dan", "ImagineDragons", "imagine@fragons.com", 06323232, 3);
             int idCustomer1 = agendaManager.insertCustomer(customer);
             
+            //delete
+            agendaManager.deleteAddress(idAddress1);
+            agendaManager.deleteCustomer(idCustomer1);
+            
         } catch (IOException ex) {
             Logger.getLogger(TpAgenda.class.getName()).log(Level.SEVERE, null, ex);
         }

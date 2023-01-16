@@ -138,18 +138,18 @@ public class AgendaManager {
         }
         return id;
     }
-    
+
 //Insert customer
-    public int insertCustomer (Customer customer) throws SQLException {
+    public int insertCustomer(Customer customer) throws SQLException {
         String SQL = "INSERT INTO customers (lst_name, first_name, username, email, phone_number, address_id)" + "VALUES(?,?,?,?,?,?)";
         int id = 0;
-         try (Connection connection = PoolManager.getInstance().getConnection()) {
+        try (Connection connection = PoolManager.getInstance().getConnection()) {
             PreparedStatement pstmt = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, customer.getLastName());
-            pstmt.setString(2,customer.getFirstName());
+            pstmt.setString(2, customer.getFirstName());
             pstmt.setString(3, customer.getUsername());
-            pstmt.setString(4,customer.getEmail());
-            pstmt.setInt(5,customer.getPhoneNumber());
+            pstmt.setString(4, customer.getEmail());
+            pstmt.setInt(5, customer.getPhoneNumber());
             pstmt.setInt(6, customer.getAddressId());
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
@@ -162,6 +162,36 @@ public class AgendaManager {
 
         }
         return id;
+    }
+
+    //delete address
+    public int deleteAddress(int id) throws SQLException {
+        String SQL = "DELETE FROM addresses WHERE address_id = ?";
+        int affectedrows = 0;
+        try (Connection connection = PoolManager.getInstance().getConnection()) {
+            PreparedStatement pstmt = connection.prepareStatement(SQL);
+            pstmt.setInt(1, id);
+            affectedrows = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return affectedrows;
+
+    }
+
+    //delete customer
+    public int deleteCustomer(int id) throws SQLException {
+        String SQL = "DELETE FROM customers WHERE customer_id = ?";
+        int affectedrows = 0;
+        try (Connection connection = PoolManager.getInstance().getConnection()) {
+            PreparedStatement pstmt = connection.prepareStatement(SQL);
+            pstmt.setInt(1, id);
+            affectedrows = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return affectedrows;
+
     }
 
 }
