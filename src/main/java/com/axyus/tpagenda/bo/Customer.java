@@ -7,29 +7,30 @@ public class Customer {
     private String firstName;
     private String username;
     private String email;
-    private Address address;
+    private int phoneNumber;
+    private int addressId;
 
     public Customer() {
     }
 
-    public Customer(int customerId, String lastName, String firstName, String username, String email) {
+    public Customer(int customerId, String lastName, String firstName, String username, String email, int phoneNumber, int address) {
         this.customerId = customerId;
         this.lastName = lastName;
         this.firstName = firstName;
         this.username = username;
         this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.addressId = addressId;
     }
 
-    public Customer(int customerId, String lastName, String firstName, String username, String email, Address address) {
-        this.customerId = customerId;
+    public Customer(String lastName, String firstName, String username, String email, int phoneNumber, int addressId) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.username = username;
         this.email = email;
-        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.addressId = addressId;
     }
-    
-    
 
     public int getCustomerId() {
         return customerId;
@@ -71,17 +72,25 @@ public class Customer {
         this.email = email;
     }
 
-    public Address getAddress() {
-        return address;
+    public int getAddressId() {
+        return addressId;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
     public String toString() {
-        return "Customer{" + "customerId=" + customerId + ", lastName=" + lastName + ", firstName=" + firstName + ", username=" + username + ", email=" + email + '}';
+        return "Customer{" + "customerId=" + customerId + ", lastName=" + lastName + ", firstName=" + firstName + ", username=" + username + ", email=" + email + ", addressId=" + addressId + '}';
     }
 
 }
