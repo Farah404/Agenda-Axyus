@@ -18,9 +18,20 @@ public class TpAgenda {
         try {
             utils.initialize();
 
-            //get and find
+            //create
+//            agendaManager.createCustomer();
+//            agendaManager.createAddress();
+
+            //read
             agendaManager.getAllCustomers();
             agendaManager.getAllAddresses();
+            agendaManager.findById(1);
+
+            //update
+//            agendaManager.updateUsername("");
+
+            //delete
+//            agendaManager.deleteById(2);
 
         } catch (IOException ex) {
             Logger.getLogger(TpAgenda.class.getName()).log(Level.SEVERE, null, ex);
