@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Customers list</title>
+</head>
+<body>
+
+	<h1>Customers list</h1>
+	
+	<a href="/index">Go back to home</a>
+
+	<div th:each="customer : ${customers}">
+		<h6>Last name</h6>
+                <p th:text="${customer.lastName}"> </p>
+		<h6>First Name</h6>
+		<h6>Username</h6>
+		<hr>
+	</div>
+
+</body>
+</html>
