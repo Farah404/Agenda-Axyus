@@ -17,10 +17,13 @@ public class TpAgenda {
         AgendaManager agendaManager = new AgendaManager();
         try {
             utils.initialize();
+            
+            Customer customer = new Customer("", "", "", "", 0, 0);
+            Address address = new Address(0, "", "", "", "");
 
             //create
-//            agendaManager.createCustomer();
-//            agendaManager.createAddress();
+//           agendaManager.createCustomer(customer);
+//           agendaManager.createAddress(address);
 
             //read
             agendaManager.getAllCustomers();
@@ -28,7 +31,7 @@ public class TpAgenda {
             agendaManager.findById(1);
 
             //update
-//            agendaManager.updateUsername("");
+//            agendaManager.updateUsername(1,"farah404");
 
             //delete
 //            agendaManager.deleteById(2);

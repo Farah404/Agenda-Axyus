@@ -50,7 +50,7 @@ public class AgendaManager {
     }
 
     //Create Customer
-    public void createCustomer() throws SQLException {
+    public void createCustomer(Customer customer) throws SQLException {
         try (Connection connection = PoolManager.getInstance().getConnection()) {
             final StringBuilder sql = new StringBuilder();
             final PStmtBinder.SimplePStmtBinderBuilder binder = new PStmtBinder.SimplePStmtBinderBuilder();
@@ -58,19 +58,19 @@ public class AgendaManager {
             sql.append("    customers \n");
             sql.append("        (lst_name, first_name, username, email, phone_number, address_id) \n");
             sql.append("            VALUES(?,?,?,?,?,?)");
-            binder.add("Reynolds");
-            binder.add("Dan");
-            binder.add("imagine10");
-            binder.add("imagine@dragons.com");
-            binder.add(07);
-            binder.add(2);
+            binder.add(customer.getLastName());
+            binder.add(customer.getFirstName());
+            binder.add(customer.getUsername());
+            binder.add(customer.getEmail());
+            binder.add(customer.getPhoneNumber());
+            binder.add(customer.getAddressId());
             jdbcUtils.executeUpdate(connection, sql.toString(), binder.toPStmtBinder());
             connection.commit();
         }
     }
 
     //Create Address
-    public void createAddress() throws SQLException {
+    public void createAddress(Address address) throws SQLException {
         try (Connection connection = PoolManager.getInstance().getConnection()) {
             final StringBuilder sql = new StringBuilder();
             final PStmtBinder.SimplePStmtBinderBuilder binder = new PStmtBinder.SimplePStmtBinderBuilder();
@@ -78,28 +78,28 @@ public class AgendaManager {
             sql.append("    addresses \n");
             sql.append("        (street_number, street_name, city, postal_code, country) \n");
             sql.append("            VALUES(?,?,?,?,?)");
-            binder.add(6);
-            binder.add("neverland");
-            binder.add("wonderland");
-            binder.add(21322);
-            binder.add("Dreams Boulevard");
+            binder.add(address.getStreetNumber());
+            binder.add(address.getStreetName());
+            binder.add(address.getCity());
+            binder.add(address.getPostalCode());
+            binder.add(address.getCountry());
             jdbcUtils.executeUpdate(connection, sql.toString(), binder.toPStmtBinder());
             connection.commit();
         }
     }
 
     //Update Customer username
-    public void updateUsername(String username) throws SQLException {
+    public void updateUsername(int id, String username) throws SQLException {
         try (Connection connection = PoolManager.getInstance().getConnection()) {
             final StringBuilder sql = new StringBuilder();
             final PStmtBinder.SimplePStmtBinderBuilder binder = new PStmtBinder.SimplePStmtBinderBuilder();
             sql.append(" UPDATE \n");
             sql.append("    customers \n");
             sql.append("        SET username = ? \n");
-            binder.add("farah404");
+            binder.add(username);
             sql.append("            WHERE \n");
             sql.append("                customer_id=?");
-            binder.add(username);
+            binder.add(id);
             jdbcUtils.executeUpdate(connection, sql.toString(), binder.toPStmtBinder());
             connection.commit();
         }
