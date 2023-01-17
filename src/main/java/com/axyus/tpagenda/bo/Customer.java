@@ -1,5 +1,8 @@
 package com.axyus.tpagenda.bo;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Customer {
 
     private int customerId;
@@ -30,6 +33,16 @@ public class Customer {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.addressId = addressId;
+    }
+    
+    public Customer(ResultSet rs) throws SQLException{
+        this.customerId = rs.getInt("customer_id");
+        this.lastName = rs.getString("lst_name");
+        this.firstName = rs.getString("first_name");
+        this.username = rs.getString("username");
+        this.email = rs.getString("email");
+        this.phoneNumber = rs.getInt("phone_number");
+        this.addressId = rs.getInt("address_id");
     }
 
     public int getCustomerId() {

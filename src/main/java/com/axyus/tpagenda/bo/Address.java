@@ -1,5 +1,8 @@
 package com.axyus.tpagenda.bo;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Address {
 
     private int addressId;
@@ -24,6 +27,15 @@ public class Address {
         this.city = city;
         this.postalCode = postalCode;
         this.country = country;
+    }
+
+    public Address(ResultSet rs) throws SQLException {
+        this.addressId = rs.getInt("address_id");
+        this.streetNumber = rs.getInt("street_number");
+        this.streetName = rs.getString("street_name");
+        this.city = rs.getString("city");
+        this.postalCode = rs.getString("postal_code");
+        this.country = rs.getString("country");
     }
 
     public int getAddressId() {

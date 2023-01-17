@@ -1,213 +1,139 @@
 package com.axyus.tpagenda.bll;
 
+import com.axyus.jdbc.JdbcUtils;
+import com.axyus.jdbc.PStmtBinder;
+import com.axyus.jdbc.RowMapper;
 import com.axyus.jdbc.pool.PoolManager;
 import com.axyus.tpagenda.bo.Address;
 import com.axyus.tpagenda.bo.Customer;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class AgendaManager {
 
+    @Autowired
+    private JdbcUtils jdbcUtils;
+
     //Get all customers
-    public void getAllCustomers() throws SQLException {
+    public List<Customer> getAllCustomers() throws SQLException {
+
         try (Connection connection = PoolManager.getInstance().getConnection()) {
-//            String test = (String) JdbcUtils.queryObject(connection, "SELECT lst_name FROM customers WHERE customer_id=1", new RowMapper.ColToStringRowMapper());
-//            Logger.getLogger(TpAgenda.class.getName()).log(Level.INFO, test);
-            List<Customer> customers = new ArrayList<Customer>();
-            String SQL = "SELECT * FROM customers";
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(SQL);
-            while (rs.next()) {
-                Customer customer = new Customer();
-                customer.setCustomerId(rs.getInt("customer_id"));
-                customer.setEmail(rs.getString("email"));
-                customer.setFirstName(rs.getString("first_name"));
-                customer.setLastName(rs.getString("lst_name"));
-                customer.setUsername(rs.getString("username"));
-                customer.setPhoneNumber(rs.getInt("phone_number"));
-                customer.setAddressId(rs.getInt("address_id"));
-                customers.add(customer);
+            final StringBuilder sql = new StringBuilder();
+            final PStmtBinder.SimplePStmtBinderBuilder binder = new PStmtBinder.SimplePStmtBinderBuilder();
+            sql.append("SELECT * \n ");
+            sql.append("    FROM \n");
+            sql.append("        customers");
+            List<Customer> allCustomers = (List<Customer>) jdbcUtils.queryObjects(connection, sql.toString(), new RowMapper.ClassRowMapper(Customer.class));
+            for (int i = 0; i < allCustomers.size(); i++) {
+                System.out.println(allCustomers.get(i));
             }
-            System.out.println("-----------------------");
-            System.out.println("----All Customers----");
-            for (int i = 0; i < customers.size(); i++) {
-
-                System.out.println(customers.get(i));
-            }
-
         }
+        return null;
     }
 
     //Get all Addresses
-    public void getAllAddresses() throws SQLException {
+    public List<Address> getAllAddresses() throws SQLException {
         try (Connection connection = PoolManager.getInstance().getConnection()) {
-            List<Address> addresses = new ArrayList<>();
-            String SQL = "SELECT * FROM addresses";
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(SQL);
-            while (rs.next()) {
-                Address address = new Address(6, "Boulevard des r\u00eaves", "Wonderland", "26500", "Neverland");
-                address.setAddressId(rs.getInt("address_id"));
-                address.setCity(rs.getString("city"));
-                address.setCountry(rs.getString("country"));
-                address.setPostalCode(rs.getString("postal_code"));
-                address.setStreetName(rs.getString("street_name"));
-                address.setStreetNumber(rs.getInt("street_number"));
-                addresses.add(address);
-            }
-            System.out.println("-----------------------");
-            System.out.println("---All Addresses----");
-            for (int i = 0; i < addresses.size(); i++) {
-                System.out.println(addresses.get(i));
+            final StringBuilder sql = new StringBuilder();
+            final PStmtBinder.SimplePStmtBinderBuilder binder = new PStmtBinder.SimplePStmtBinderBuilder();
+            sql.append("SELECT * \n ");
+            sql.append("    FROM \n");
+            sql.append("        addresses");
+            List<Address> allAddresses = (List<Address>) jdbcUtils.queryObjects(connection, sql.toString(), new RowMapper.ClassRowMapper(Address.class));
+            for (int i = 0; i < allAddresses.size(); i++) {
+                System.out.println(allAddresses.get(i));
             }
         }
+        return null;
     }
 
-    //find Address by id
-    public void findAddressById(int addressId) throws SQLException {
+    //Create Customer
+    public void createCustomer() throws SQLException {
         try (Connection connection = PoolManager.getInstance().getConnection()) {
-            String SQL = "SELECT * " + "FROM addresses " + "WHERE address_id=?";
-            PreparedStatement pstmt = connection.prepareStatement(SQL);
-            pstmt.setInt(1, addressId);
-            ResultSet rs = pstmt.executeQuery();
-            displayAddress(rs);
+            final StringBuilder sql = new StringBuilder();
+            final PStmtBinder.SimplePStmtBinderBuilder binder = new PStmtBinder.SimplePStmtBinderBuilder();
+            sql.append(" INSERT INTO \n");
+            sql.append("    customers \n");
+            sql.append("        (lst_name, first_name, username, email, phone_number, address_id) \n");
+            sql.append("            VALUES(?,?,?,?,?,?)");
+            binder.add("Reynolds");
+            binder.add("Dan");
+            binder.add("imagine10");
+            binder.add("imagine@dragons.com");
+            binder.add(07);
+            binder.add(2);
+            jdbcUtils.executeUpdate(connection, sql.toString(), binder.toPStmtBinder());
+            connection.commit();
         }
     }
 
-    private void displayAddress(ResultSet rs) throws SQLException {
-        while (rs.next()) {
-            System.out.println("-----------------------");
-            System.out.println(rs.getString("address_id") + "\t"
-                    + rs.getString("street_number") + "\t"
-                    + rs.getString("street_name") + "\t"
-                    + rs.getString("city") + "\t"
-                    + rs.getString("postal_code") + "\t"
-                    + rs.getString("country")
-            );
-        }
-    }
-
-    //find Customer by address id
-    public void findCustomerbyAddressId(int addressId) throws SQLException {
+    //Create Address
+    public void createAddress() throws SQLException {
         try (Connection connection = PoolManager.getInstance().getConnection()) {
-            String SQL = "SELECT * " + "FROM customers " + "WHERE address_id=?";
-            PreparedStatement pstmt = connection.prepareStatement(SQL);
-            pstmt.setInt(1, addressId);
-            ResultSet rs = pstmt.executeQuery();
-            displayCustomer(rs);
+            final StringBuilder sql = new StringBuilder();
+            final PStmtBinder.SimplePStmtBinderBuilder binder = new PStmtBinder.SimplePStmtBinderBuilder();
+            sql.append(" INSERT INTO \n");
+            sql.append("    addresses \n");
+            sql.append("        (street_number, street_name, city, postal_code, country) \n");
+            sql.append("            VALUES(?,?,?,?,?)");
+            binder.add(6);
+            binder.add("neverland");
+            binder.add("wonderland");
+            binder.add(21322);
+            binder.add("Dreams Boulevard");
+            jdbcUtils.executeUpdate(connection, sql.toString(), binder.toPStmtBinder());
+            connection.commit();
         }
     }
 
-    private void displayCustomer(ResultSet rs) throws SQLException {
-        while (rs.next()) {
-            System.out.println("-----------------------");
-            System.out.println(rs.getString("lst_name") + "\t"
-                    + rs.getString("first_name") + "\t"
-                    + rs.getString("username") + "\t"
-                    + rs.getString("email") + "\t"
-                    + rs.getString("phone_number") + "\t"
-                    + rs.getInt("address_id"));
-        }
-    }
-
-    //Insert address
-    public int insertAddress(Address address) throws SQLException {
-        String SQL = "INSERT INTO addresses (street_number, street_name, city, postal_code, country)" + "VALUES(?,?,?,?,?)";
-        int id = 0;
+    //Update Customer username
+    public void updateUsername(String username) throws SQLException {
         try (Connection connection = PoolManager.getInstance().getConnection()) {
-            PreparedStatement pstmt = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            pstmt.setInt(1, address.getStreetNumber());
-            pstmt.setString(2, address.getStreetName());
-            pstmt.setString(3, address.getCity());
-            pstmt.setString(4, address.getPostalCode());
-            pstmt.setString(5, address.getCountry());
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows > 0) {
-                try (ResultSet rs = pstmt.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        id = rs.getInt(1);
-                    }
-                }
-            }
-
+            final StringBuilder sql = new StringBuilder();
+            final PStmtBinder.SimplePStmtBinderBuilder binder = new PStmtBinder.SimplePStmtBinderBuilder();
+            sql.append(" UPDATE \n");
+            sql.append("    customers \n");
+            sql.append("        SET username = ? \n");
+            binder.add("farah404");
+            sql.append("            WHERE \n");
+            sql.append("                customer_id=?");
+            binder.add(username);
+            jdbcUtils.executeUpdate(connection, sql.toString(), binder.toPStmtBinder());
+            connection.commit();
         }
-        return id;
     }
 
-//Insert customer
-    public int insertCustomer(Customer customer) throws SQLException {
-        String SQL = "INSERT INTO customers (lst_name, first_name, username, email, phone_number, address_id)" + "VALUES(?,?,?,?,?,?)";
-        int id = 0;
+    //delete customer by id
+    public void deleteById(int id) throws SQLException {
         try (Connection connection = PoolManager.getInstance().getConnection()) {
-            PreparedStatement pstmt = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            pstmt.setString(1, customer.getLastName());
-            pstmt.setString(2, customer.getFirstName());
-            pstmt.setString(3, customer.getUsername());
-            pstmt.setString(4, customer.getEmail());
-            pstmt.setInt(5, customer.getPhoneNumber());
-            pstmt.setInt(6, customer.getAddressId());
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows > 0) {
-                try (ResultSet rs = pstmt.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        id = rs.getInt(1);
-                    }
-                }
-            }
-
+            final StringBuilder sql = new StringBuilder();
+            final PStmtBinder.SimplePStmtBinderBuilder binder = new PStmtBinder.SimplePStmtBinderBuilder();
+            sql.append(" DELETE FROM \n");
+            sql.append("    customers \n");
+            sql.append("        WHERE \n");
+            sql.append("            customer_id=? \n");
+            binder.add(id);
+            jdbcUtils.executeUpdate(connection, sql.toString(), binder.toPStmtBinder());
+            connection.commit();
         }
-        return id;
     }
 
-    //delete address
-    public int deleteAddress(int id) throws SQLException {
-        String SQL = "DELETE FROM addresses WHERE address_id = ?";
-        int affectedrows = 0;
+    //get customer by id
+    public void findById(int id) throws SQLException {
         try (Connection connection = PoolManager.getInstance().getConnection()) {
-            PreparedStatement pstmt = connection.prepareStatement(SQL);
-            pstmt.setInt(1, id);
-            affectedrows = pstmt.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            final StringBuilder sql = new StringBuilder();
+            final PStmtBinder.SimplePStmtBinderBuilder binder = new PStmtBinder.SimplePStmtBinderBuilder();
+            sql.append(" SELECT * FROM \n");
+            sql.append("    customers \n");
+            sql.append("        WHERE \n");
+            sql.append("            customer_id=? \n");
+            binder.add(id);
+            Customer customer = (Customer) jdbcUtils.queryObject(connection, sql.toString(), new RowMapper.ClassRowMapper(Customer.class), binder.toPStmtBinder());
+            System.out.println(customer);
+            connection.commit();
         }
-        return affectedrows;
-
-    }
-
-    //delete customer
-    public int deleteCustomer(int id) throws SQLException {
-        String SQL = "DELETE FROM customers WHERE customer_id = ?";
-        int affectedrows = 0;
-        try (Connection connection = PoolManager.getInstance().getConnection()) {
-            PreparedStatement pstmt = connection.prepareStatement(SQL);
-            pstmt.setInt(1, id);
-            affectedrows = pstmt.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return affectedrows;
-
-    }
-
-    //Update username
-    public int updateUsername(int id, String username) throws SQLException {
-        String SQL = "UPDATE customers " + "SET username= ? " + "WHERE customer_id=?";
-        int affectedrows = 0;
-        try (Connection connection = PoolManager.getInstance().getConnection()) {
-            PreparedStatement pstmt = connection.prepareStatement(SQL);
-            pstmt.setString(1, username);
-            pstmt.setInt(2, id);
-            affectedrows = pstmt.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return affectedrows;
-
     }
 
 }
